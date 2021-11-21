@@ -32,8 +32,9 @@ router.get("/", async function (req, res) {
 	}
 });
 
-router.get("/id", async function (req, res) {
+router.post("/id", async function (req, res) {
 	try {
+		console.log(req.body);
 		const post = await Post.findById(req.body.id)
 			.select()
 			.populate({ path: "user_id", select: "Name email" })
@@ -45,9 +46,13 @@ router.get("/id", async function (req, res) {
 	}
 });
 
-router.get("/search", async function (req, res) {
+router.post("/search", async function (req, res) {
+	console.log(req.body);
 	try {
-		const post = await Post.find({ from: req.body.from, to: req.body.to })
+		const post = await Post.find({
+			from: req.body.search.from,
+			to: req.body.search.to,
+		})
 			.select()
 			.populate({ path: "user_id", select: "Name email" })
 			.lean()

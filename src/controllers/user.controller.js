@@ -30,12 +30,13 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
 	try {
-		let user = await User.findOne({ email: req.body.email }).exec();
+		console.log(req.body);
+		let user = await User.findOne({ email: req.body.data.email }).exec();
 
 		if (!user) {
 			return res.status(400).send("User not exists");
 		}
-		const match = user.checkPassword(req.body.password);
+		const match = user.checkPassword(req.body.data.password);
 
 		if (!match)
 			return res
