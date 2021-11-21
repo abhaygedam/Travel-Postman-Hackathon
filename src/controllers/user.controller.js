@@ -9,13 +9,12 @@ const newToken = (user) => {
 };
 
 const register = async (req, res) => {
+	console.log(req.body);
 	try {
 		let user = await User.findOne({ email: req.body.email }).lean().exec();
 
 		if (user) {
-			return res
-				.status(400)
-				.json({ status: "error", message: "User already exists" });
+			return res.status(200).json({ message: "User already exists" });
 		}
 
 		user = await User.create(req.body);

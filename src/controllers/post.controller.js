@@ -53,6 +53,7 @@ router.post("/search", async function (req, res) {
 			from: req.body.search.from,
 			to: req.body.search.to,
 		})
+			.sort({ timestamp: -1 })
 			.select()
 			.populate({ path: "user_id", select: "Name email" })
 			.lean()
